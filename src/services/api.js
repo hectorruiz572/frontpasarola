@@ -35,3 +35,37 @@ export const login = async (user) => {
 export const setAuth = async (token) => {
     i.defaults.headers.common["Authorization"] = `Basic ${token}`;
 };
+
+export const registerUser = async (user) => {
+    try {
+        await i.post("/auth/register", user);
+    } catch (error) {
+        console.error("Register error", error);
+    }
+};
+
+export const createEvent = async (event) => {
+    try {
+        await i.post("/events/create", event);
+    } catch (error) {
+        console.error("Create event error", error);
+    }
+};
+
+export const cargarEventos = async () => {
+    try {
+        const response = await i.get("/events/all");
+        return response.data;
+    } catch (error) {
+        console.error("Cargar eventos error", error);
+    }
+};
+
+export const getUsers = async () => {
+    try {
+        const response = await i.get("/users/");
+        return response.data;
+    } catch (error) {
+        console.error("Cargar eventos error", error);
+    }
+};
