@@ -3,6 +3,7 @@ import { createEvent } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import "./NuevoEvento.css";
 import { getUsers } from "../services/api";
+import { invitarEvento } from "../services/api";
 
 const NuevoEvento = () => {
   const [evento, setEvento] = useState({});
@@ -29,7 +30,27 @@ const NuevoEvento = () => {
 
   const crearEvento = () => {
     const eventoConUsuarios = { ...evento, invitedUsers: selectedUsers }; // Añadimos los usuarios seleccionados
-    createEvent(eventoConUsuarios).then(() => navigate("/eventos"));
+
+    createEvent(eventoConUsuarios)
+      .then((eventoCreado) => {
+        // Ahora eventoCreado tiene el id del evento
+        if (eventoCreado && eventoCreado.id) {
+          selectedUsers.forEach((userId) => {
+            const invitation = {
+              event: eventoCreado.id, // Usamos el id del evento recién creado
+              receiver: userId,
+              invitationStatus: "pending",
+            };
+            invitarEvento(invitation);
+          });
+          navigate("/eventos"); // Navegar después de enviar las invitaciones
+        } else {
+          console.error("El evento no tiene un id válido");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al crear el evento o enviar invitaciones", error);
+      });
   };
 
   return (

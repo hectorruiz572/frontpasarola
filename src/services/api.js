@@ -45,12 +45,16 @@ export const registerUser = async (user) => {
 };
 
 export const createEvent = async (event) => {
-    try {
-        await i.post("/events/create", event);
-    } catch (error) {
-        console.error("Create event error", error);
-    }
+  try {
+    const response = await i.post("/events/create", event);
+    return response.data; // Devuelves los datos del evento creado (incluyendo el id)
+  } catch (error) {
+    console.error("Create event error", error);
+    throw error; // Lanza el error para manejarlo si es necesario
+  }
 };
+
+
 
 export const cargarEventos = async () => {
     try {
@@ -67,5 +71,13 @@ export const getUsers = async () => {
         return response.data;
     } catch (error) {
         console.error("Cargar eventos error", error);
+    }
+};
+
+export const invitarEvento = async (invitation) => {
+    try {
+        await i.post(`/events/${invitation.event}/invite/${invitation.receiver}`, invitation);
+    } catch (error) {
+        console.error("Invitar evento error", error);
     }
 };

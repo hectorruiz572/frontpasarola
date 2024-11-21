@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cargarEventos } from "../services/api";
-import "./ListaEventos.css"; // Asegúrate de importar el archivo CSS
+import "./ListaEventos.css";
 
 const ListaEventos = () => {
   const navigate = useNavigate();
