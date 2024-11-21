@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Login from "./Login";
 import "./Register.css";
+import { registerUser } from "../services/api";
 
 const Register = () => {
   const [user, setUser] = useState({});
@@ -13,7 +14,8 @@ const Register = () => {
       return;
     }
     setError("");
-    Register(user);
+    console.log(user);
+    registerUser(user).then(redirectLogin);
   };
 
   const redirectLogin = () => {

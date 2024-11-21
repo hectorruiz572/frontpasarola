@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { cargarEventos } from "../services/api";
 
 const ListaEventos = () => {
   const navigate = useNavigate();
   const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/eventos")
-      .then((response) => response.json())
-      .then((data) => setEventos(data));
+    cargarEventos().then(setEventos);
+    console.log(eventos);
   }, []);
 
   return (

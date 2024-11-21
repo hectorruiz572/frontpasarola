@@ -16,21 +16,6 @@ const Home = () => {
             Perfil
           </Link>
         </li>
-        <li>
-          <Link to="/llevarcosas" className="menu-link">
-            Cosas a llevar
-          </Link>
-        </li>
-        <li>
-          <Link to="/nuevoEvento" className="menu-link">
-            Añadir Evento
-          </Link>
-        </li>
-        <li>
-          <Link to="/inscripcion" className="menu-link">
-            Inscripción a Evento
-          </Link>
-        </li>
       </ul>
     </div>
   );
