@@ -1,0 +1,47 @@
+/* Estilo del contenedor principal */
+.home-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Estilo del encabezado */
+.home-heading {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilo de la lista de navegación */
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Estilo de cada enlace */
+.menu-link {
+  display: block;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #007bff;
+  background-color: #e2e6ea;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efecto hover en los enlaces */
+.menu-link:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Agregar espacio entre los enlaces */
+.menu-link:not(:last-child) {
+  margin-bottom: 10px;
+}
