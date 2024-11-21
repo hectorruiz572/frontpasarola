@@ -1,16 +1,27 @@
-/* eslint-disable react/prop-types */
-import { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from "react";
 
-const AppContext = createContext();
-export const useUserContext = () => useContext(AppContext);
+// Crear el contexto
+const UserContext = createContext();
 
+// Proveedor del contexto
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+
   return (
-    <AppContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
-    </AppContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export default UserProvider;
+// Hook personalizado para usar el contexto
+const useUserContext = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUserContext debe ser usado dentro de UserProvider");
+  }
+  return context;
+};
+
+// Exportaciones
+export { UserProvider, UserContext, useUserContext };

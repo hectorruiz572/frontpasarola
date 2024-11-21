@@ -69,3 +69,6 @@ export const getUsers = async () => {
         console.error("Cargar eventos error", error);
     }
 };
+export const updatePerfil = async (userID, updatedData) => {
+    await i.put("/users")
+}
