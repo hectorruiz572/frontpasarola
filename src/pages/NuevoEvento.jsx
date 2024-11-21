@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createEvent } from "../services/api";
 import { useNavigate } from "react-router-dom";
-import "./NuevoEvento.css"; // Asegúrate de importar el archivo CSS
+import "./NuevoEvento.css";
+import { getUsers } from "../services/api";
 
 const NuevoEvento = () => {
   const [evento, setEvento] = useState({});
+  const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]); // Estado para los usuarios seleccionados
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getUsers().then(setUsers);
+  }, []);
+
+  // Función para manejar el cambio del checkbox de cada usuario
+  const handleCheckboxChange = (userId) => {
+    setSelectedUsers((prevSelectedUsers) => {
+      if (prevSelectedUsers.includes(userId)) {
+        // Si el usuario ya está seleccionado, lo quitamos
+        return prevSelectedUsers.filter((id) => id !== userId);
+      } else {
+        // Si el usuario no está seleccionado, lo agregamos
+        return [...prevSelectedUsers, userId];
+      }
+    });
+  };
+
   const crearEvento = () => {
-    createEvent(evento).then(navigate("/eventos"));
+    const eventoConUsuarios = { ...evento, invitedUsers: selectedUsers }; // Añadimos los usuarios seleccionados
+    createEvent(eventoConUsuarios).then(() => navigate("/eventos"));
   };
 
   return (
@@ -37,6 +58,20 @@ const NuevoEvento = () => {
           placeholder="Lugar del Evento"
           onChange={(e) => setEvento({ ...evento, location: e.target.value })}
         />
+
+        <ul className="event-list">
+          <label>Invitar Usuarios</label>
+          {users.map((user) => (
+            <li key={user.id} className="event-item">
+              <span className="event-name">{user.username}</span>
+              <input
+                type="checkbox"
+                checked={selectedUsers.includes(user.id)} // Comprobamos si el usuario está seleccionado
+                onChange={() => handleCheckboxChange(user.id)} // Cambiamos el estado del checkbox
+              />
+            </li>
+          ))}
+        </ul>
 
         <button className="submit-button" onClick={crearEvento}>
           Crear Evento

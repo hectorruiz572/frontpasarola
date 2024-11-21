@@ -60,3 +60,12 @@ export const cargarEventos = async () => {
         console.error("Cargar eventos error", error);
     }
 };
+
+export const getUsers = async () => {
+    try {
+        const response = await i.get("/users/");
+        return response.data;
+    } catch (error) {
+        console.error("Cargar eventos error", error);
+    }
+};
