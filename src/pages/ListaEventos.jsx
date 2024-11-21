@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cargarEventos } from "../services/api";
+import "./ListaEventos.css"; // Asegúrate de importar el archivo CSS
 
 const ListaEventos = () => {
   const navigate = useNavigate();
@@ -12,16 +13,28 @@ const ListaEventos = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Lista de Eventos</h2>
-      {eventos.map((evento) => (
-        <li key={evento.id} style={{ margin: "10px 0" }}>
-          {evento.name}{" "}
-          <button onClick={() => navigate(`/eventos/${evento.id}`)}>Ir</button>
-        </li>
-      ))}
+    <div className="event-list-container">
+      <h2 className="event-list-heading">Lista de Eventos</h2>
+      <ul className="event-list">
+        {eventos.map((evento) => (
+          <li key={evento.id} className="event-item">
+            <span className="event-name">{evento.name}</span>
+            <button
+              className="event-button"
+              onClick={() => navigate(`/eventos/${evento.id}`)}
+            >
+              Ir
+            </button>
+          </li>
+        ))}
+      </ul>
 
-      <button onClick={() => navigate("/nuevoEvento")}>+</button>
+      <button
+        className="add-event-button"
+        onClick={() => navigate("/nuevoEvento")}
+      >
+        +
+      </button>
     </div>
   );
 };
